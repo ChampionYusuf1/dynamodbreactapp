@@ -23,21 +23,21 @@ export default function TodoCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: "",
+    year: "",
     description: "",
   };
-  const [name, setName] = React.useState(initialValues.name);
+  const [year, setYear] = React.useState(initialValues.year);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setName(initialValues.name);
+    setYear(initialValues.year);
     setDescription(initialValues.description);
     setErrors({});
   };
   const validations = {
-    name: [{ type: "Required" }],
+    year: [{ type: "Required" }],
     description: [],
   };
   const runValidationTasks = async (
@@ -66,7 +66,7 @@ export default function TodoCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          name,
+          year,
           description,
         };
         const validationResponses = await Promise.all(
@@ -122,29 +122,29 @@ export default function TodoCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Name"
+        label="Year"
         isRequired={true}
         isReadOnly={false}
-        value={name}
+        value={year}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              name: value,
+              year: value,
               description,
             };
             const result = onChange(modelFields);
-            value = result?.name ?? value;
+            value = result?.year ?? value;
           }
-          if (errors.name?.hasError) {
-            runValidationTasks("name", value);
+          if (errors.year?.hasError) {
+            runValidationTasks("year", value);
           }
-          setName(value);
+          setYear(value);
         }}
-        onBlur={() => runValidationTasks("name", name)}
-        errorMessage={errors.name?.errorMessage}
-        hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
+        onBlur={() => runValidationTasks("year", year)}
+        errorMessage={errors.year?.errorMessage}
+        hasError={errors.year?.hasError}
+        {...getOverrideProps(overrides, "year")}
       ></TextField>
       <TextField
         label="Description"
@@ -155,7 +155,7 @@ export default function TodoCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              name,
+              year,
               description: value,
             };
             const result = onChange(modelFields);
