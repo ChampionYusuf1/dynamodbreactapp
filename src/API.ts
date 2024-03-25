@@ -4,12 +4,12 @@
 
 export type CreateTodoInput = {
   id?: string | null,
-  name: string,
+  year: string,
   description?: string | null,
 };
 
 export type ModelTodoConditionInput = {
-  name?: ModelStringInput | null,
+  year?: ModelStringInput | null,
   description?: ModelStringInput | null,
   and?: Array< ModelTodoConditionInput | null > | null,
   or?: Array< ModelTodoConditionInput | null > | null,
@@ -59,7 +59,7 @@ export type ModelSizeInput = {
 export type Todo = {
   __typename: "Todo",
   id: string,
-  name: string,
+  year: string,
   description?: string | null,
   createdAt: string,
   updatedAt: string,
@@ -67,7 +67,7 @@ export type Todo = {
 
 export type UpdateTodoInput = {
   id: string,
-  name?: string | null,
+  year?: string | null,
   description?: string | null,
 };
 
@@ -77,7 +77,7 @@ export type DeleteTodoInput = {
 
 export type ModelTodoFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
+  year?: ModelStringInput | null,
   description?: ModelStringInput | null,
   and?: Array< ModelTodoFilterInput | null > | null,
   or?: Array< ModelTodoFilterInput | null > | null,
@@ -108,7 +108,7 @@ export type ModelTodoConnection = {
 
 export type ModelSubscriptionTodoFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
+  year?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionTodoFilterInput | null > | null,
   or?: Array< ModelSubscriptionTodoFilterInput | null > | null,
@@ -153,7 +153,7 @@ export type CreateTodoMutation = {
   createTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
+    year: string,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -169,7 +169,7 @@ export type UpdateTodoMutation = {
   updateTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
+    year: string,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -185,7 +185,7 @@ export type DeleteTodoMutation = {
   deleteTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
+    year: string,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -200,7 +200,7 @@ export type GetTodoQuery = {
   getTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
+    year: string,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -219,7 +219,7 @@ export type ListTodosQuery = {
     items:  Array< {
       __typename: "Todo",
       id: string,
-      name: string,
+      year: string,
       description?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -236,7 +236,7 @@ export type OnCreateTodoSubscription = {
   onCreateTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
+    year: string,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -251,7 +251,7 @@ export type OnUpdateTodoSubscription = {
   onUpdateTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
+    year: string,
     description?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -266,7 +266,7 @@ export type OnDeleteTodoSubscription = {
   onDeleteTodo?:  {
     __typename: "Todo",
     id: string,
-    name: string,
+    year: string,
     description?: string | null,
     createdAt: string,
     updatedAt: string,

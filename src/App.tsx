@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { generateClient } from "aws-amplify/api";
 
-import { createTodo } from "./graphql/mutations";
+import { createTodo, deleteTodo } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
 import { type CreateTodoInput, type Todo } from "./API";
 
@@ -10,9 +10,11 @@ import { withAuthenticator, Button, Heading } from "@aws-amplify/ui-react";
 import { type AuthUser } from "aws-amplify/auth";
 import { type UseAuthenticator } from "@aws-amplify/ui-react-core";
 import "@aws-amplify/ui-react/styles.css";
+import { deleteTodo as deleteTodoMutation } from "./graphql/mutations";
 
-const initialState: CreateTodoInput = { name: "", description: "" };
+const initialState: CreateTodoInput = { year: "", description: "" };
 const client = generateClient();
+
 
 type AppProps = {
   signOut?: UseAuthenticator["signOut"]; //() => void;
@@ -41,7 +43,7 @@ const App: React.FC<AppProps> = ({ signOut, user }) => {
 
   async function addTodo() {
     try {
-      if (!formState.name || !formState.description) return;
+      if (!formState.year || !formState.description) return;
       const todo = { ...formState };
       setTodos([...todos, todo]);
       setFormState(initialState);
@@ -56,6 +58,22 @@ const App: React.FC<AppProps> = ({ signOut, user }) => {
     }
   }
 
+
+  async function deleteTodo(id) {
+    try {
+      await client.graphql({
+        query: deleteTodoMutation,
+        variables: {
+          input: { id }
+        }
+      });
+      setTodos(todos.filter(todo => todo.id !== id));
+    } catch (err) {
+      console.log("error deleting todo:", err);
+    }
+  }
+
+  
   return (
     <div style={styles.container}>
       <Heading level={1}>Hello {user?.username}</Heading>
@@ -63,10 +81,10 @@ const App: React.FC<AppProps> = ({ signOut, user }) => {
       <h2>Amplify Todos</h2>
       <input
         onChange={(event) =>
-          setFormState({ ...formState, name: event.target.value })
+          setFormState({ ...formState, year: event.target.value })
         }
         style={styles.input}
-        value={formState.name}
+        value={formState.year}
         placeholder="Name"
       />
       <input
@@ -77,15 +95,17 @@ const App: React.FC<AppProps> = ({ signOut, user }) => {
         value={formState.description as string}
         placeholder="Description"
       />
+      
       <button style={styles.button} onClick={addTodo}>
         Create Todo
       </button>
       {todos.map((todo, index) => (
-        <div key={todo.id ? todo.id : index} style={styles.todo}>
-          <p style={styles.todoName}>{todo.name}</p>
-          <p style={styles.todoDescription}>{todo.description}</p>
-        </div>
-      ))}
+  <div key={todo.id ? todo.id : index} style={styles.todo}>
+    <p style={styles.todoName}>{todo.year}</p>
+    <p style={styles.todoDescription}>{todo.description}</p>
+    <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+  </div>
+))}
     </div>
   );
 };

@@ -6,6 +6,6 @@ input AMPLIFY {
 } # FOR TESTING ONLY!
 type Todo @model {
   id: ID!
-  name: String!
+  year: String!
   description: String
 }
